@@ -1,17 +1,25 @@
-from stats import count_words, count_characters
+from stats import count_words, count_characters, sorted_char_count
 
 def main() -> int:
 
-    book = get_book_text("./books/frankenstein.txt")
+    path = "./books/frankenstein.txt"
+
+    book = get_book_text(path_to_file=path)
 
     word_count = count_words(text=book)
     
-    char_count = count_characters(text=book)
+    char_count = sorted_char_count(count_characters(text=book))
     
+
+    print("============ BOOKBOT ============")
+    print(f"Analyzing book found at {path}...")
+    print("----------- Word Count ----------")
     print(f"Found {word_count} total words")
-    
-    for k, v in char_count.items():
-        print(f"'{k}': {v}")
+    print("--------- Character Count -------")
+    for pair in char_count:
+        print(f"{pair["char"]}: {pair["num"]}")
+    print("============= END ===============")
+
 
     return 0
 
@@ -21,6 +29,8 @@ def get_book_text(path_to_file: str) -> str:
         file_contents = f.read()
     
     return file_contents
+
+
 
 
 
